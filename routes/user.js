@@ -10,7 +10,7 @@ const FileSync = require('lowdb/adapters/FileSync', {
   });
 
 //Запрос регистрации пользователя
-router.post("/register",upload.none(), function(request, response) {
+router.post("/register", upload.none(), function(request, response) {
     const db = low(new FileSync('db.json'));// получение БД
     //получение параметров из тела запроса
     const { name, email, password } = request.body;
@@ -91,7 +91,7 @@ router.get("/current", function(request, response) {
         //отправка ответа пользователем
         response.json({ success: true, user: userValue });
     }
-    else{
+    else {
         //отправка ответа с отсутствием пользователя
         response.json({ success: false, user: null, error: 'Необходимо передать id, name и email пользователя' });
     }

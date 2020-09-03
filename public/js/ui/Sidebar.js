@@ -1,35 +1,53 @@
-/**
- * Класс Sidebar отвечает за работу боковой колонки:
- * кнопки скрытия/показа колонки в мобильной версии сайта
- * и за кнопки меню
- * */
+'use strict';
+
 class Sidebar {
-  /**
-   * Запускает initAuthLinks и initToggleButton
-   * */
+
   static init() {
     this.initAuthLinks();
     this.initToggleButton();
   }
 
-  /**
-   * Отвечает за скрытие/показа боковой колонки:
-   * переключает два класса для body: sidebar-open и sidebar-collapse
-   * при нажатии на кнопку .sidebar-toggle
-   * */
   static initToggleButton() {
+    document.getElementsByClassName('sidebar-toggle').item(0).onclick = function () {
+      const bodySideBar = document.getElementsByClassName('skin-blue sidebar-mini app').item(0);
+      bodySideBar.classList.toggle('sidebar-open');
+      bodySideBar.classList.toggle('sidebar-collapse');
+    };
+  };
 
-  }
-
-  /**
-   * При нажатии на кнопку входа, показывает окно входа
-   * (через найденное в App.getModal)
-   * При нажатии на кнопку регастрации показывает окно регистрации
-   * При нажатии на кнопку выхода вызывает User.logout и по успешному
-   * выходу устанавливает App.setState( 'init' )
-   * */
   static initAuthLinks() {
+    // register
+    const registerModal = App.getModal( 'register' );
+    const registerButton = document.getElementsByClassName('menu-item_register').item(0);
+    this.addOpenCloseButtonEvent( registerModal, registerButton );
+    registerModal.element.querySelector('button.btn-primary').onclick = function () {
+      new RegisterForm(document.getElementById('register-form')).submit();
+    };
+    // login
+    const loginModal = App.getModal( 'login' );
+    const loginButton = document.getElementsByClassName('menu-item_login').item(0);
+    this.addOpenCloseButtonEvent( loginModal, loginButton );
+    loginModal.element.querySelector('button.btn-primary').onclick = function () {
+      new LoginForm(document.getElementById('login-form')).submit();
+    };
+    // logout
+    const logoutButton = document.getElementsByClassName('menu-item_logout').item(0);
+    logoutButton.onclick = function () {
+      User.logout( {}, response => {
+        if ( response && response.success ) {
+          User.unsetCurrent();
+          App.setState( 'init' );
+        }
+      });
+    };
+  };
 
-  }
+  static addOpenCloseButtonEvent( modal, openButton ) {
+    openButton.onclick = function () {
+      modal.open();
+    };
+    modal.element.querySelector('button.close').onclick = function () { modal.close() };
+    modal.element.querySelector('button.pull-left').onclick = function () { modal.close(); };
+  };
 
 }

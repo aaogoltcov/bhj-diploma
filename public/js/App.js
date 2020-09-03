@@ -1,6 +1,5 @@
-/**
- * Класс App управляет всем приложением
- * */
+'use strict';
+
 class App {
   /**
    * С вызова этого метода начинается работа всего приложения
@@ -31,9 +30,9 @@ class App {
    * состояние 'init'
    * */
   static initUser() {
-    User.fetch(User.current(), () =>
-      this.setState( User.current() ? 'user-logged' : 'init' )
-    );
+      User.isAuthorized(User.current(), () =>
+        this.setState( User.current() ? 'user-logged' : 'init' )
+      );
   }
 
   /**
@@ -144,7 +143,7 @@ class App {
    * вызвать метод clear()
    * */
   static setState( state ) {
-    if (this.state) {
+    if ( this.state ) {
       this.element.classList.remove( `app_${this.state}` );
     }
     this.element.classList.add( `app_${state}` );
@@ -175,7 +174,7 @@ class App {
   static update() {
     this.updateWidgets();
     this.updatePages();
-    this.updateForms();
+    // this.updateForms();
   }
 
   /**
@@ -197,8 +196,8 @@ class App {
     this.getWidget( 'user' ).update();
   }
 
-  static updateForms() {
-    this.getForm( 'createIncome' ).renderAccountsList();
-    this.getForm( 'createExpense' ).renderAccountsList();
-  }
+  // static updateForms() {
+  //   this.getForm( 'createIncome' ).renderAccountsList();
+  //   this.getForm( 'createExpense' ).renderAccountsList();
+  // }
 }

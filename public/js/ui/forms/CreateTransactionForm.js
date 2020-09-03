@@ -1,32 +1,55 @@
-/**
- * Класс CreateTransactionForm управляет формой
- * создания новой транзакции
- * Наследуется от AsyncForm
- * */
-class CreateTransactionForm {
-  /**
-   * Вызывает родительский конструктор и
-   * метод renderAccountsList
-   * */
+'use strict';
+
+class CreateTransactionForm extends AsyncForm {
+
   constructor( element ) {
+    super( element );
+    this.element = element;
+    this.selects = this.element.querySelectorAll('select.accounts-select');
+    this.select = this.element.querySelector('select.accounts-select');
+    this.renderAccountsList();
+  };
 
-  }
-
-  /**
-   * Получает список счетов с помощью Account.list
-   * Обновляет в форме всплывающего окна выпадающий список
-   * */
   renderAccountsList() {
-
+    // clear current options
+    Array.from(this.element.querySelectorAll('option')).forEach( element => {
+      element.remove();
+    });
+    // add new options
+    try {
+      Account.list( User.current().user, response => {
+        if (response && response.success) {
+          Array.from( response.data ).forEach( element => {
+            let option = document.createElement('option');
+            option.value = element.id;
+            option.innerHTML = element.name;
+            Array.from(this.selects).forEach( element => {
+              element.appendChild( option );
+            });
+          });
+        }
+      });
+    } catch ( error ) {
+      console.log(`Пользователь не авторизирован: ${ error }`)
+    };
   }
 
-  /**
-   * Создаёт новую транзакцию (доход или расход)
-   * с помощью Transaction.create. По успешному результату
-   * вызывает App.update(), сбрасывает форму и закрывает окно,
-   * в котором находится форма
-   * */
   onSubmit( options ) {
-
+    let type = '';
+    let account_id = this.select.options[this.select.selectedIndex].value;
+    let data = Object.assign({ user_id: User.current().id, account_id: account_id }, options.data );
+    data.type = (this.element.id === 'new-income-form' ? type = 'income' : type = 'expense');
+    Transaction.create( data, response => {
+      if (response.success && response) {
+        if ( type.toUpperCase() == 'INCOME' ) {
+          App.getModal('newIncome').close();
+        } else {
+          App.getModal('newExpense').close();
+        }
+        super.resetFormData();
+        App.update();
+        this.renderAccountsList();
+      }
+    });
   }
 }

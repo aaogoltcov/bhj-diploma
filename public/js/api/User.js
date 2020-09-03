@@ -1,66 +1,34 @@
-/**
- * Класс User управляет авторизацией, выходом и
- * регистрацией пользователя из приложения
- * Имеет свойство URL, равное '/user'.
- * */
-class User {
-  /**
-   * Устанавливает текущего пользователя в
-   * локальном хранилище.
-   * */
-  static setCurrent(user) {
+'use strict';
 
-  }
+class User extends Entity {
 
-  /**
-   * Удаляет информацию об авторизованном
-   * пользователе из локального хранилища.
-   * */
-  static unsetCurrent() {
+    static setCurrent( user ) {
+        localStorage.setItem('user', JSON.stringify( user ));
+    };
 
-  }
+    static unsetCurrent() {
+        localStorage.removeItem('user');
+    };
 
-  /**
-   * Возвращает текущего авторизованного пользователя
-   * из локального хранилища
-   * */
-  static current() {
+    static current() {
+        return JSON.parse( localStorage.getItem('user') );
+    };
 
-  }
+    static isAuthorized( data, callback = f => f ) {
+        super.list( Object.assign({ url: '/user/current', getAuthorizedUser: true }, data ), callback );
+    };
 
-  /**
-   * Получает информацию о текущем
-   * авторизованном пользователе.
-   * */
-  static fetch( data, callback = f => f ) {
+    static login( data, callback = f => f ) {
+        super.create( Object.assign({ url: '/user/login' }, data ), callback );
+    };
 
-  }
+    static register( data, callback = f => f ) {
+        super.create( Object.assign({ url: '/user/register' }, data ), callback );
+    };
 
-  /**
-   * Производит попытку авторизации.
-   * После успешной авторизации необходимо
-   * сохранить пользователя через метод
-   * User.setCurrent.
-   * */
-  static login( data, callback = f => f ) {
+    static logout( data, callback = f => f ) {
+        super.create( Object.assign({ url: '/user/logout' }, data ), callback );
+    };
 
-  }
-
-  /**
-   * Производит попытку регистрации пользователя.
-   * После успешной авторизации необходимо
-   * сохранить пользователя через метод
-   * User.setCurrent.
-   * */
-  static register( data, callback = f => f ) {
-
-  }
-
-  /**
-   * Производит выход из приложения. После успешного
-   * выхода необходимо вызвать метод User.unsetCurrent
-   * */
-  static logout( data, callback = f => f ) {
-
-  }
 }
+
