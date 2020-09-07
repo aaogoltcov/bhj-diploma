@@ -3,15 +3,13 @@
 class UserWidget {
 
   constructor( element ) {
-    if (element) {
-      this.element = element;
-    } else {
-      throw ('Такого элемента не существует...');
-    }
+    if ( !element ) { throw Error }
+    this.element = element;
   };
 
   update() {
-    this.element.querySelector('p.user-name').innerHTML = User.current().name;
+    let currentUser = User.current()
+    currentUser ? this.element.querySelector('p.user-name').innerHTML = currentUser.name : '';
   };
 
 }

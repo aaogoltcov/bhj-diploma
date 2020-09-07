@@ -3,14 +3,10 @@
 class Modal {
 
   constructor( element ) {
-    if (element) {
-      this.element = element;
-      this.closeButtonsArray = Array.from(this.element.querySelectorAll('[data-dismiss="modal"]'))
-      this.registerEvents();
-    } else {
-      throw ('Такого элменента не существует...');
-    }
-
+    if ( !element ) { throw Error }
+    this.element = element;
+    this.closeButtonsArray = Array.from(this.element.querySelectorAll('[data-dismiss="modal"]'))
+    this.registerEvents();
   };
 
   registerEvents() {

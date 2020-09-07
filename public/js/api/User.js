@@ -15,19 +15,19 @@ class User extends Entity {
     };
 
     static isAuthorized( data, callback = f => f ) {
-        super.list( Object.assign({ url: '/user/current', getAuthorizedUser: true }, data ), callback );
+        super.list( `/user/current?id=${ data.id }`, Object.assign({ getAuthorizedUser: true }, data ), callback );
     };
 
     static login( data, callback = f => f ) {
-        super.create( Object.assign({ url: '/user/login' }, data ), callback );
+        super.create( '/user/login', data, callback );
     };
 
     static register( data, callback = f => f ) {
-        super.create( Object.assign({ url: '/user/register' }, data ), callback );
+        super.create( '/user/register', data, callback );
     };
 
     static logout( data, callback = f => f ) {
-        super.create( Object.assign({ url: '/user/logout' }, data ), callback );
+        super.create( '/user/logout', data, callback );
     };
 
 }

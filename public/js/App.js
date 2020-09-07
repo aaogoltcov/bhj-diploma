@@ -30,9 +30,12 @@ class App {
    * состояние 'init'
    * */
   static initUser() {
-      User.isAuthorized(User.current(), () =>
-        this.setState( User.current() ? 'user-logged' : 'init' )
+    let currentUser = User.current();
+    if ( currentUser ) {
+      User.isAuthorized( currentUser, () =>
+          this.setState( currentUser ? 'user-logged' : 'init' )
       );
+    }
   }
 
   /**
@@ -196,8 +199,8 @@ class App {
     this.getWidget( 'user' ).update();
   }
 
-  // static updateForms() {
-  //   this.getForm( 'createIncome' ).renderAccountsList();
-  //   this.getForm( 'createExpense' ).renderAccountsList();
-  // }
+  static updateForms() {
+    this.getForm( 'createIncome' ).renderAccountsList();
+    this.getForm( 'createExpense' ).renderAccountsList();
+  }
 }

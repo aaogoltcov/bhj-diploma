@@ -12,13 +12,27 @@
       "email": "alex@alex",
       "password": "alex",
       "id": "31dbwaisi5ken85p6a",
-      "isAuthorized": false
+      "isAuthorized": true
     },
     {
       "name": "andrei",
       "email": "andre@andrei",
       "password": "andrei",
       "id": "31dbwaisl2ken8744d",
+      "isAuthorized": false
+    },
+    {
+      "name": "user",
+      "email": "user@user",
+      "password": "user",
+      "id": "31dbwai1w17kerjau71",
+      "isAuthorized": false
+    },
+    {
+      "name": "andrei",
+      "email": "andrei@andrei",
+      "password": "andrei",
+      "id": "31dbwaihp4kesej8n1",
       "isAuthorized": false
     }
   ],
@@ -42,6 +56,16 @@
       "name": "Кошелек",
       "user_id": "1",
       "id": "31dbwaiwftkenaftga"
+    },
+    {
+      "name": "Кошелек",
+      "user_id": "31dbwaisi5ken85p6a",
+      "id": "31dbwai1vdykeriz5lb"
+    },
+    {
+      "name": "Кошелек",
+      "user_id": "31dbwaihp4kesej8n1",
+      "id": "31dbwaihpskeseji3o"
     }
   ],
   "transactions": [
@@ -182,36 +206,12 @@
       "created_at": "2020-09-03T20:26:57.770Z"
     },
     {
-      "id": "31dbwaiur0ken9h8lk",
-      "type": "INCOME",
-      "name": "Зарплата",
-      "sum": 1000,
-      "account_id": "31dbwaiuqrken9gx83",
-      "created_at": "2020-09-03T20:27:57.511Z"
-    },
-    {
-      "id": "31dbwaiutkken9iq3m",
-      "type": "INCOME",
-      "name": "Зарплата",
-      "sum": 1000,
-      "account_id": "31dbwaiuqrken9gx83",
-      "created_at": "2020-09-03T20:29:06.849Z"
-    },
-    {
       "id": "31dbwaiuy2ken9lh06",
       "type": "INCOME",
       "name": "Зарплата",
       "sum": 10000,
       "account_id": "31dbwaiuqrken9gx83",
       "created_at": "2020-09-03T20:31:15.029Z"
-    },
-    {
-      "id": "31dbwaiv5cken9pam7",
-      "type": "INCOME",
-      "name": "Зарплата",
-      "sum": 10000,
-      "account_id": "31dbwaiuqrken9gx83",
-      "created_at": "2020-09-03T20:34:13.374Z"
     },
     {
       "id": "31dbwaiv6cken9qpm1",
@@ -228,14 +228,6 @@
       "sum": 10000,
       "account_id": "31dbwaiv5wken9phzx",
       "created_at": "2020-09-03T20:36:14.948Z"
-    },
-    {
-      "id": "31dbwaivamken9sb2a",
-      "type": "EXPENSE",
-      "name": "Покупки",
-      "sum": 1000,
-      "account_id": "31dbwaiuqrken9gx83",
-      "created_at": "2020-09-03T20:36:33.921Z"
     },
     {
       "id": "31dbwaivikken9wqcr",
@@ -276,14 +268,6 @@
       "sum": 1000,
       "account_id": "31dbwaiv5wken9phzx",
       "created_at": "2020-09-03T20:45:11.781Z"
-    },
-    {
-      "id": "31dbwaivuokena3oza",
-      "type": "EXPENSE",
-      "name": "Расход",
-      "sum": 1000,
-      "account_id": "31dbwaiuqrken9gx83",
-      "created_at": "2020-09-03T20:45:25.173Z"
     },
     {
       "id": "31dbwaiwg2kenagbaf",
@@ -620,6 +604,86 @@
       "sum": 1000,
       "account_id": "31dbwaiwftkenaftga",
       "created_at": "2020-09-03T22:10:39.818Z"
+    },
+    {
+      "id": "31dbwai1rjrkergny87",
+      "type": "INCOME",
+      "name": "Кошелек",
+      "sum": 1000,
+      "account_id": "31dbwai1rj8kergnewo",
+      "created_at": "2020-09-06T19:00:12.678Z"
+    },
+    {
+      "id": "31dbwai1rkrkergo6s9",
+      "type": "EXPENSE",
+      "name": "Расход",
+      "sum": 1000,
+      "account_id": "31dbwai1rj8kergnewo",
+      "created_at": "2020-09-06T19:00:23.768Z"
+    },
+    {
+      "id": "31dbwai1rl6kergohog",
+      "type": "INCOME",
+      "name": "Доход",
+      "sum": 1000,
+      "account_id": "31dbwai1rj8kergnewo",
+      "created_at": "2020-09-06T19:00:37.887Z"
+    },
+    {
+      "id": "31dbwai1vynkerj9wnh",
+      "type": "INCOME",
+      "name": "Доход",
+      "sum": 1000,
+      "account_id": "31dbwaiuqrken9gx83",
+      "created_at": "2020-09-06T20:13:16.300Z"
+    },
+    {
+      "id": "31dbwai1vzlkerja2ol",
+      "type": "INCOME",
+      "name": "Дозод",
+      "sum": 1000,
+      "account_id": "31dbwaiwftkenaftga",
+      "created_at": "2020-09-06T20:13:24.116Z"
+    },
+    {
+      "id": "31dbwai1vzxkerja940",
+      "type": "EXPENSE",
+      "name": "Расход",
+      "sum": 1000,
+      "account_id": "31dbwaiuqrken9gx83",
+      "created_at": "2020-09-06T20:13:32.447Z"
+    },
+    {
+      "id": "31dbwai1xwwkerkdjqo",
+      "type": "INCOME",
+      "name": "Доход",
+      "sum": 1000,
+      "account_id": "31dbwaiuqrken9gx83",
+      "created_at": "2020-09-06T20:44:05.807Z"
+    },
+    {
+      "id": "31dbwaifi0kesdem6l",
+      "type": "INCOME",
+      "name": "Доход",
+      "sum": 1000,
+      "account_id": "31dbwaiuqrken9gx83",
+      "created_at": "2020-09-07T10:16:44.492Z"
+    },
+    {
+      "id": "31dbwaifj9kesdesr4",
+      "type": "INCOME",
+      "name": "Доход",
+      "sum": 1000,
+      "account_id": "31dbwai1vdykeriz5lb",
+      "created_at": "2020-09-07T10:16:53.007Z"
+    },
+    {
+      "id": "31dbwaihrxkesekedo",
+      "type": "INCOME",
+      "name": "Доход",
+      "sum": 1000,
+      "account_id": "31dbwaihpskeseji3o",
+      "created_at": "2020-09-07T10:49:13.931Z"
     }
   ]
 }

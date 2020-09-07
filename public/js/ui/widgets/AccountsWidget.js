@@ -3,45 +3,36 @@
 class AccountsWidget {
 
   constructor( element ) {
-    if (element) {
-      this.element = element;
-      this.registerEvents();
-      // this.update();
-    } else {
-      throw ('Такого элемента не существует...');
-    }
+    if ( !element ) { throw Error }
+    this.element = element;
+    this.registerEvents();
+    // this.update();
   };
 
   registerEvents() {
-    // create account
-    this.element.getElementsByClassName('create-account').item(0).onclick = function () {
-      App.getModal('createAccount').open();
-    }
-    // choose account
-    let listAccounts = this.element.getElementsByClassName('account');
-    if ( listAccounts.length > 0 ) {
-      Array.from( listAccounts ).forEach( element => {
-        element.onclick = event => {
-            this.onSelectAccount( element );
-          }
-        });
+    // create or choose account
+    this.element.onclick = event => {
+      if ( event.composedPath()[0].classList.contains('create-account') ) {
+        App.getModal('createAccount').open();
+      } else if ( event.composedPath()[1].classList.contains('account') ) {
+        this.onSelectAccount( event.composedPath()[1] );
       }
+    }
   };
 
   update() {
-    try {
-      Account.list(User.current().user, response => {
+    let currentUser = User.current();
+    if ( currentUser ) {
+      Entity.list( '/account', currentUser, response => {
         if (response && response.success && response.data) {
           this.clear();
           Array.from(response.data).forEach(element => {
             this.renderItem( element );
           });
-          this.registerEvents();
+          // this.registerEvents();
         }
       });
-    } catch ( error ) {
-      console.log(`Пользователь не авторизирован: ${ error }`)
-    };
+    }
   };
 
   clear() {

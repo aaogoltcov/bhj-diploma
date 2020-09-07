@@ -3,12 +3,9 @@
 class TransactionsWidget {
 
   constructor( element ) {
-    if ( element ) {
-      this.element = element;
-      this.registerEvents();
-    } else {
-      throw ('Такого элменента не существует...');
-    }
+    if ( !element ) { throw Error }
+    this.element = element;
+    this.registerEvents();
   };
 
   registerEvents() {

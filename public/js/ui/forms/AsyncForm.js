@@ -3,13 +3,10 @@
 class AsyncForm {
 
   constructor( element ) {
-    if ( element ) {
-      this.element = element;
-      this.formData = new FormData( this.element );
-      this.registerEvents();
-    } else {
-      throw ('Такого элемента не существует...');
-    }
+    if ( !element ) { throw Error }
+    this.element = element;
+    this.formData = new FormData( this.element );
+    this.registerEvents();
   };
 
   registerEvents() {
@@ -32,7 +29,7 @@ class AsyncForm {
   };
 
   submit() {
-    this.onSubmit({ data: this.getData() } );
+    this.onSubmit( this.getData() );
   };
 
   resetFormData() {

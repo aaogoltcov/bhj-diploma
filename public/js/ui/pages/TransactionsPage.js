@@ -3,13 +3,10 @@
 class TransactionsPage {
 
   constructor( element ) {
-    if ( element ) {
-      this.element = element;
-      this.registerEvents();
-      this.lastOptions = {};
-    } else {
-      throw ('Такого элменента не существует...');
-    }
+    if ( !element ) { throw Error }
+    this.element = element;
+    this.registerEvents();
+    this.lastOptions = {};
   };
 
   update() {
@@ -19,23 +16,24 @@ class TransactionsPage {
   };
 
   registerEvents() {
-    // remove account
-    this.element.querySelector('button.remove-account').onclick = event => {
-      this.removeAccount( event );
-    };
-    // remove transactions
-    Array.from(this.element.querySelectorAll('button.transaction__remove')).forEach( element => {
-      element.onclick = event => {
-        this.removeTransaction( element.dataset.id );
-      };
-    });
+    // remove account or transaction
+    this.element.onclick = event => {
+      let eventElement = event.composedPath();
+      if ( eventElement[0].classList.contains('remove-account') ) {
+        this.removeAccount( eventElement[0] )
+      } else if ( eventElement[0].classList.contains('transaction__remove') ) {
+        this.removeTransaction( eventElement[0].dataset.id );
+      } else if ( eventElement[1].classList.contains('transaction__remove') ) {
+        this.removeTransaction( eventElement[1].dataset.id );
+      }
+    }
   };
 
   removeAccount() {
     if ( this.lastOptions.account_id ) {
       let confirmAccountRequest = confirm( 'Вы действительно хотите удалить этот счет?' );
       if ( confirmAccountRequest ) {
-        Account.remove( this.lastOptions.account_id, {}, response => {
+        Entity.remove( '/account', this.lastOptions.account_id, {}, response => {
           if ( response.success ) {
             this.clear();
             App.update();
@@ -48,7 +46,7 @@ class TransactionsPage {
   removeTransaction( id ) {
     let confirmTransactionRequest = confirm( 'Вы действительно хотите удалить эту транзакцию?' );
     if ( confirmTransactionRequest ) {
-      Transaction.remove( id, {}, response => {
+      Entity.remove( '/transaction', id, {}, response => {
         if ( response.success ) {
           Array.from(this.element.querySelectorAll('div.transaction')).forEach( element => {
             if ( element.querySelector('button.transaction__remove').dataset.id === id ) {
@@ -65,16 +63,14 @@ class TransactionsPage {
     this.clear();
     if ( options ) {
       this.lastOptions = options;
-      Account.get(options.account_id, { getAccount: true }, response => {
+      Entity.get( `/account/${ options.account_id }`, options.account_id, { getAccount: true }, response => {
         if ( response.success ) {
           this.renderTitle( response.data.name );
-          this.registerEvents();
         }
       });
-      Transaction.get( options.account_id, { getTransaction: true }, response => {
+      Entity.get( `/transaction?account_id=${ options.account_id }`, options.account_id, { getTransaction: true }, response => {
         if ( response.success ) {
           this.renderTransactions( response.data );
-          this.registerEvents();
         }
       });
     }
